@@ -41,7 +41,7 @@ __browserconfig.ejs__
 __webpack.config.js__
 
 ```javascript
-var XMLWebpackPlugin = require('xml-webpack-plugin');
+var XMLWebpackPlugin = require('xml-webpack-plugin')
 
 var xmlFiles = [
     {
@@ -68,7 +68,7 @@ var webpackConfig = {
             files: xmlFiles
         })
     ]
-};
+}
 ```
 
 
@@ -107,7 +107,7 @@ __webpack.config.js__
 
 ```javascript
 var pkg = require('./package.json')
-var XMLWebpackPlugin = require('xml-webpack-plugin');
+var XMLWebpackPlugin = require('xml-webpack-plugin')
 
 var xmlFiles = [
     {
@@ -141,7 +141,7 @@ var webpackConfig = {
             files: xmlFiles
         })
     ]
-};
+}
 ```
 
 
