@@ -22,7 +22,6 @@ XMLWebpackPlugin.prototype.apply = function(compiler) {
 							compilation.errors.push(err)
 							compileFailed = true
 						}
-						delete file.templateData // No longer needed
 						file.templateString = templateString
 						resolve()
 					})
