@@ -25,15 +25,15 @@ __browserconfig.ejs__
 ```text
 <?xml version="1.0" encoding="utf-8"?>
 <browserconfig>
-	<msapplication>
-		<tile>
-			<square70x70logo src="<%= square70x70logo %>"/>
-			<square150x150logo src="<%= square150x150logo %>"/>
-			<wide310x150logo src="<%= wide310x150logo %>"/>
-			<square310x310logo src="<%= square310x310logo %>"/>
-			<TileColor><%= tileColor %></TileColor>
-		</tile>
-	</msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src="<%= square70x70logo %>"/>
+            <square150x150logo src="<%= square150x150logo %>"/>
+            <wide310x150logo src="<%= wide310x150logo %>"/>
+            <square310x310logo src="<%= square310x310logo %>"/>
+            <TileColor><%= tileColor %></TileColor>
+        </tile>
+    </msapplication>
 </browserconfig>
 ```
 
@@ -44,30 +44,30 @@ __webpack.config.js__
 var XMLWebpackPlugin = require('xml-webpack-plugin');
 
 var xmlFiles = [
-	{
-		template: path.join(__dirname, 'browserconfig.ejs'),
-		filename: 'browserconfig.xml',
-		data: {
-			square70x70logo: 'images/icon70.png',
-			square150x150logo: 'images/icon150.png',
-			wide310x150logo: 'images/icon310x150.png',
-			square310x310logo: 'images/icon310.png',
-			tileColor: '#ffffff'
-		}
-	}
+    {
+        template: path.join(__dirname, 'browserconfig.ejs'),
+        filename: 'browserconfig.xml',
+        data: {
+            square70x70logo: 'images/icon70.png',
+            square150x150logo: 'images/icon150.png',
+            wide310x150logo: 'images/icon310x150.png',
+            square310x310logo: 'images/icon310.png',
+            tileColor: '#ffffff'
+        }
+    }
 ]
 
 var webpackConfig = {
-	entry: 'index.js',
-	output: {
-		path: 'dist',
-		filename: 'index_bundle.js'
-	},
-	plugins: [
-		new XMLWebpackPlugin({
-			files: xmlFiles
-		})
-	]
+    entry: 'index.js',
+    output: {
+        path: 'dist',
+        filename: 'index_bundle.js'
+    },
+    plugins: [
+        new XMLWebpackPlugin({
+            files: xmlFiles
+        })
+    ]
 };
 ```
 
@@ -110,37 +110,37 @@ var pkg = require('./package.json')
 var XMLWebpackPlugin = require('xml-webpack-plugin');
 
 var xmlFiles = [
-	{
-		template: path.join(__dirname, 'cordovaConfig.ejs'),
-		filename: 'config.xml',
-		writeToContext: true,
-		data: {
-			version: pkg.version,
-			name: 'myApp',
-			description: 'This is the description of my app',
-			allowIntents: [
-				'http://*/*',
-				'https://*/*',
-				'tel:*',
-				'sms:*',
-				'mailto:*',
-				'geo:*'
-			]
-		}
-	}
+    {
+        template: path.join(__dirname, 'cordovaConfig.ejs'),
+        filename: 'config.xml',
+        writeToContext: true,
+        data: {
+            version: pkg.version,
+            name: 'myApp',
+            description: 'This is the description of my app',
+            allowIntents: [
+                'http://*/*',
+                'https://*/*',
+                'tel:*',
+                'sms:*',
+                'mailto:*',
+                'geo:*'
+            ]
+        }
+    }
 ]
 
 var webpackConfig = {
-	entry: 'index.js',
-	output: {
-		path: 'dist',
-		filename: 'index_bundle.js'
-	},
-	plugins: [
-		new XMLWebpackPlugin({
-			files: xmlFiles
-		})
-	]
+    entry: 'index.js',
+    output: {
+        path: 'dist',
+        filename: 'index_bundle.js'
+    },
+    plugins: [
+        new XMLWebpackPlugin({
+            files: xmlFiles
+        })
+    ]
 };
 ```
 
