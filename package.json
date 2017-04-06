@@ -1,0 +1,31 @@
+{
+  "name": "xml-webpack-plugin",
+  "version": "0.0.1",
+  "description": "Use templates to generate XML files in your webpack project",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rvanmil/xml-webpack-plugin.git"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "xml",
+    "xml-webpack-plugin"
+  ],
+  "author": "René van Mil <rvanmil@me.com> (https://github.com/rvanmil)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rvanmil/xml-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/rvanmil/xml-webpack-plugin#readme",
+  "dependencies": {
+    "ejs": "^2.5.6"
+  }
+}
