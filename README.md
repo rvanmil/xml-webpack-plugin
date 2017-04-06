@@ -16,7 +16,7 @@ $ npm install xml-webpack-plugin --save-dev
 ## Usage
 
 
-#### Example 1 - browserconfig.xml
+### Example - browserconfig.xml
 
 This example will generate a `browserconfig.xml` file inside the output path of your webpack bundle.
 
@@ -72,7 +72,7 @@ var webpackConfig = {
 ```
 
 
-#### Example 2 - Cordova config.xml
+### Example - Cordova config.xml
 
 This example will generate a `config.xml` file inside the context path of your webpack project, which means the file will not be part of your webpack bundle but becomes part of your project folder instead. This is especially useful for e.g. generating a Cordova configuration file, which will be used by the Cordova compilation step after you generate your webpack bundle.
 
