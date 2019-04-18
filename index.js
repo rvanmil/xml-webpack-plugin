@@ -1,89 +1,84 @@
-var ejs = require('ejs')
-var fs = require('fs')
-var path = require('path')
+const ejs = require('ejs')
+const fs = require('fs')
+const path = require('path')
 
-function XMLWebpackPlugin(options) {
-	this.options = options
-}
+class XMLWebpackPlugin {
+	constructor(options) {
+		this.files = options.files || []
+	}
 
-XMLWebpackPlugin.prototype.apply = function(compiler) {
-	var self = this
-	var compileFailed = false
-
-	compiler.plugin('emit', function(compilation, callback) {
-		var files = self.options.files || []
-
-		// Compile all templates
-		Promise.all(
-			files.map(function(file) {
-				return new Promise(function(resolve) {
-					ejs.renderFile(file.template, file.data, {}, function(err, templateString) {
-						if (err) {
-							compilation.errors.push(err)
-							compileFailed = true
-						}
-						file.templateString = templateString
-						resolve()
-					})
-				})
-			})
-		)
-		.then(function() {
-			// Only continue when compiling templates did not fail
-			if (compileFailed) {
-				return callback()
-			}
-			// Split into assets and files to be written to context folder
-			var xmlFilesForContext = []
-			files.forEach(function(file) {
-				if (!file.filename) {
-					compilation.errors.push('XMLWebpackPlugin filename missing', file)
-					return
-				}
-				var xmlPath = file.path || ''
-				var xmlFilename = path.join(xmlPath, file.filename)
-				var xmlContent = file.templateString
-				if (file.writeToContext) {
-					// File must be written inside context
-					xmlFilename = path.join(compiler.context, xmlFilename)
-					xmlFilesForContext.push({
-						filename: xmlFilename,
-						content: xmlContent
-					})
-				} else {
-					// Regular asset
-					compilation.assets[xmlFilename] = {
-						source: function() {
-							return xmlContent
-						},
-						size: function() {
-							return xmlContent.length
-						}
-					}
-				}
-			})
-			// Write files to context folder
-			if (xmlFilesForContext.length == 0) {
-				// Nothing to write to context folder, we're done
-				return callback()
-			}
-			Promise.all(
-				xmlFilesForContext.map(function(xmlFile) {
-					return new Promise(function(resolve) {
-						fs.writeFile(xmlFile.filename, xmlFile.content, function(err) {
+	apply(compiler) {
+		compiler.hooks.emit.tapAsync(
+			'XMLWebpackPlugin',
+			(compilation, callback) => {
+				let compileFailed = false
+				// Compile all templates
+				Promise.all(
+					this.files.map(file => new Promise((resolve) => {
+						ejs.renderFile(file.template, file.data, {}, (err, templateString) => {
 							if (err) {
 								compilation.errors.push(err)
+								compileFailed = true
 							}
+							file.templateString = templateString
 							resolve()
 						})
+					}))
+				).then(() => {
+					// Only continue when compiling templates did not fail
+					if (compileFailed) {
+						callback()
+						return
+					}
+					// Split into assets and files to be written to context folder
+					const xmlFilesForContext = []
+					this.files.forEach((file) => {
+						if (!file.filename) {
+							compilation.errors.push('XMLWebpackPlugin filename missing', file)
+							return
+						}
+						const xmlPath = file.path || ''
+						let xmlFilename = path.join(xmlPath, file.filename)
+						const xmlContent = file.templateString
+						if (file.writeToContext) {
+							// File must be written inside context
+							xmlFilename = path.join(compiler.context, xmlFilename)
+							xmlFilesForContext.push({
+								filename: xmlFilename,
+								content: xmlContent
+							})
+						} else {
+							// Regular asset
+							compilation.assets[xmlFilename] = {
+								source: () => xmlContent,
+								size: () => xmlContent.length
+							}
+						}
 					})
+					// Write files to context folder
+					if (xmlFilesForContext.length === 0) {
+						// Nothing to write to context folder, we're done
+						callback()
+						return
+					}
+					Promise.all(
+						xmlFilesForContext.map(xmlFile => new Promise((resolve) => {
+							fs.writeFile(xmlFile.filename, xmlFile.content, (err) => {
+								if (err) {
+									compilation.errors.push(err)
+								}
+								resolve()
+							})
+						}))
+					).then(() => {
+						callback()
+					})
+				}).catch(() => {
+					callback()
 				})
-			)
-			.then(function() {
-				return callback()
-			})
-		})
-	})
+			}
+		)
+	}
 }
 
 module.exports = XMLWebpackPlugin
