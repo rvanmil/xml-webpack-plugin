@@ -1,6 +1,6 @@
 {
   "name": "xml-webpack-plugin",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Use templates to generate XML files in your webpack project",
   "main": "index.js",
   "files": [
