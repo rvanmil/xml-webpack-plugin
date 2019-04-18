@@ -1,6 +1,6 @@
 const ejs = require('ejs')
 const fs = require('fs')
-const path = require('path')
+const { join } = require('path')
 
 class XMLWebpackPlugin {
 	constructor(options) {
@@ -38,11 +38,11 @@ class XMLWebpackPlugin {
 							return
 						}
 						const xmlPath = file.path || ''
-						let xmlFilename = path.join(xmlPath, file.filename)
+						let xmlFilename = join(xmlPath, file.filename)
 						const xmlContent = file.templateString
 						if (file.writeToContext) {
 							// File must be written inside context
-							xmlFilename = path.join(compiler.context, xmlFilename)
+							xmlFilename = join(compiler.context, xmlFilename)
 							xmlFilesForContext.push({
 								filename: xmlFilename,
 								content: xmlContent

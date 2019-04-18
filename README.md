@@ -5,11 +5,21 @@ This is a [webpack](https://webpack.js.org) plugin that allows you to generate X
 Maintainer: René van Mil
 
 
+## Requirements
+
+Webpack 4.x
+
+
 ## Installation
 
 Install the plugin with npm:
 ```shell
 $ npm install xml-webpack-plugin --save-dev
+```
+
+or with yarn:
+```shell
+$ yarn add -D xml-webpack-plugin
 ```
 
 
@@ -41,9 +51,9 @@ __browserconfig.ejs__
 __webpack.config.js__
 
 ```javascript
-var XMLWebpackPlugin = require('xml-webpack-plugin')
+const XMLWebpackPlugin = require('xml-webpack-plugin')
 
-var xmlFiles = [
+const xmlFiles = [
     {
         template: path.join(__dirname, 'browserconfig.ejs'),
         filename: 'browserconfig.xml',
@@ -57,12 +67,7 @@ var xmlFiles = [
     }
 ]
 
-var webpackConfig = {
-    entry: 'index.js',
-    output: {
-        path: 'dist',
-        filename: 'index_bundle.js'
-    },
+const webpackConfig = {
     plugins: [
         new XMLWebpackPlugin({
             files: xmlFiles
@@ -106,10 +111,10 @@ __cordovaConfig.ejs__
 __webpack.config.js__
 
 ```javascript
-var pkg = require('./package.json')
-var XMLWebpackPlugin = require('xml-webpack-plugin')
+const pkg = require('./package.json')
+const XMLWebpackPlugin = require('xml-webpack-plugin')
 
-var xmlFiles = [
+const xmlFiles = [
     {
         template: path.join(__dirname, 'cordovaConfig.ejs'),
         filename: 'config.xml',
@@ -130,12 +135,7 @@ var xmlFiles = [
     }
 ]
 
-var webpackConfig = {
-    entry: 'index.js',
-    output: {
-        path: 'dist',
-        filename: 'index_bundle.js'
-    },
+const webpackConfig = {
     plugins: [
         new XMLWebpackPlugin({
             files: xmlFiles
