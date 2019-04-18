@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rvanmil/xml-webpack-plugin.svg?branch=master)](https://travis-ci.org/rvanmil/xml-webpack-plugin)
+
 # XML Webpack Plugin
 
 This is a [webpack](https://webpack.js.org) plugin that allows you to generate XML files based on [ejs](http://ejs.co) templates.
