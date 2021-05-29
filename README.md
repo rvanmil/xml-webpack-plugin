@@ -9,7 +9,7 @@ Maintainer: René van Mil
 
 ## Requirements
 
-Webpack 4.x
+Webpack 4.x or 5.x
 
 
 ## Installation
