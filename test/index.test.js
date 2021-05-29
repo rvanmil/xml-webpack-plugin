@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { join } = require('path')
 const webpack = require('webpack')
-const configuration = require('./webpack.config.js')
+const configuration = require('./webpack.config')
 
 test('Generates two XML files', (done) => {
 	const compiler = webpack(configuration)

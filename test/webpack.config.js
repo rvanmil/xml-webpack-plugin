@@ -1,5 +1,5 @@
 const { join, resolve } = require('path')
-const XMLWebpackPlugin = require('../')
+const XMLWebpackPlugin = require('..')
 
 const PATHS = {
 	app: resolve(__dirname, 'src'),
