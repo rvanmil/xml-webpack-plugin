@@ -4,12 +4,12 @@ const { join } = require('path')
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { version } = require('webpack')
 
-const processAssets = (files, compiler, compilation, callback) => {
+const processAssets = (files, options, compiler, compilation, callback) => {
 	let compileFailed = false
 	// Compile all templates
 	Promise.all(
 		files.map(file => new Promise((resolve) => {
-			ejs.renderFile(file.template, file.data, {}, (err, templateString) => {
+			ejs.renderFile(file.template, file.data, options, (err, templateString) => {
 				if (err) {
 					compilation.errors.push(err)
 					compileFailed = true
@@ -73,15 +73,16 @@ const processAssets = (files, compiler, compilation, callback) => {
 }
 
 class XMLWebpackPlugin {
-	constructor(options) {
-		this.files = options.files || []
+	constructor(params) {
+		this.files = params.files || []
+		this.options = params.options || []
 	}
 
 	apply(compiler) {
 		if (version[0] === '4') {
 			compiler.hooks.emit.tapAsync(
 				'XMLWebpackPlugin',
-				(compilation, callback) => processAssets(this.files, compiler, compilation, callback)
+				(compilation, callback) => processAssets(this.files, this.options, compiler, compilation, callback)
 			)
 		} else {
 			compiler.hooks.compilation.tap(
@@ -89,7 +90,7 @@ class XMLWebpackPlugin {
 				(compilation) => {
 					compilation.hooks.additionalAssets.tapAsync(
 						'XMLWebpackPlugin',
-						callback => processAssets(this.files, compiler, compilation, callback)
+						callback => processAssets(this.files, this.options, compiler, compilation, callback)
 					)
 				}
 			)
