@@ -72,7 +72,12 @@ const xmlFiles = [
 const webpackConfig = {
     plugins: [
         new XMLWebpackPlugin({
-            files: xmlFiles
+            files: xmlFiles,
+			options: {
+				delimiter: '%',
+				openDelimiter: '<',
+				closeDelimiter: '>'
+			}
         })
     ]
 }
@@ -140,7 +145,12 @@ const xmlFiles = [
 const webpackConfig = {
     plugins: [
         new XMLWebpackPlugin({
-            files: xmlFiles
+            files: xmlFiles,
+			options: {
+				delimiter: '%',
+				openDelimiter: '<',
+				closeDelimiter: '>'
+			}
         })
     ]
 }
@@ -157,6 +167,9 @@ The `files` array passed to the plugin must contain objects with these values:
 - `path`: *optional* - The relative folder path to write the file to. When `writeToContext` is set to `true` you have to make sure this folder already exists inside your project folder.
 - `writeToContext`: *optional* - When set to `true` the file will not be written to the webpack bundle output, but to the webpack project folder instead.
 - `data`: *optional* - An object containing the data which will be passed to the ejs compiler.
+
+
+The `options` object passed to the plugin is optional. It can contain any of the [ejs library](https://ejs.co/#docs) options.
 
 
 ## Contribution

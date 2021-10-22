@@ -75,7 +75,7 @@ const processAssets = (files, options, compiler, compilation, callback) => {
 class XMLWebpackPlugin {
 	constructor(params) {
 		this.files = params.files || []
-		this.options = params.options || []
+		this.options = params.options || {}
 	}
 
 	apply(compiler) {
